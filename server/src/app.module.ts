@@ -6,11 +6,18 @@ import { AppService } from './app.service';
 import { EntryModule } from './entry/entry.module';
 import { AuthModule } from './auth/auth.module';
 import { ConfigModule } from '@nestjs/config';
+import { ConfigService } from '@nestjs/config';
 
 @Module({
   imports: [
     EntryModule, 
-    MongooseModule.forRoot('mongodb+srv://rfmo:***REMOVED***@cluster0.ydk7d.mongodb.net/writing-blog?retryWrites=true&w=majority'),
+    MongooseModule.forRootAsync({
+      imports: [ConfigModule],
+      useFactory: async (configService: ConfigService) => ({
+        uri: configService.get<string>('MONGO_URI'),
+      }),
+      inject: [ConfigService],
+    }),
     ConfigModule.forRoot({envFilePath: 'env/development.env'}), 
     AuthModule],
   controllers: [AppController],
