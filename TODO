@@ -1,0 +1,4 @@
+- Put mongoose url into .env
+- Frontend:
+  - Index page with link to admin, entry list, search by title, search by tag
+  - Admin Page with link to edit, add, tag, untag 
