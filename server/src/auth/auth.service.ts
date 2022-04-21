@@ -4,12 +4,13 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class AuthService {
-  constructor(
-    private jwtService: JwtService
-  ) {}
+  constructor(private jwtService: JwtService) {}
 
   async validateUser(pass: string) {
-    const match = await bcrypt.compare(pass, '$2b$10$.VH4XZXUjngS4jYwQFSSe.og9IFnwjQkVRHnieahe11O3DZ0Tr9mi');
+    const match = await bcrypt.compare(
+      pass,
+      '$2b$10$D/IH2ZnHDkOVKkfAMpx4jOe0VPpfQ/icoKM3pWZ7ZL5LzrM9QL6YO',
+    );
     return match;
   }
 
