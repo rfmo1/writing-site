@@ -6,14 +6,8 @@
           {{ link.name }}
         </v-tab>
       </v-tabs>
-      <v-btn
-        color="grey lighten-3"
-        max-height="15vh"
-        max-width="15vw"
-        style="font-size: 0.9vw"
-        @click="toggleAdmin"
-      >
-        {{ loggedInStatus ? "Log out" : "Admin" }}
+      <v-btn color="grey lighten-3" max-height="15vh" max-width="15vw" style="font-size: 0.9vw" @click="toggleAdmin">
+        {{ loggedInStatus ? 'Log out' : 'Admin' }}
       </v-btn>
     </v-app-bar>
 
@@ -27,33 +21,35 @@
 
 <script>
 export default {
+  name: 'DefaultLayout',
+
   data() {
     return {
       links: [
-        { name: "Index", link: "/" },
-        { name: "Search", link: "/search" },
+        { name: 'Index', link: '/' },
+        { name: 'Search', link: '/search' },
       ],
     };
   },
 
-  created() {
-    if (this.loggedInStatus) {
-      this.links.push({ name: "New Post", link: "admin/newpost" });
-      this.links.push({ name: "Edit", link: "admin/edit" });
-    }
-  },
-
   computed: {
     loggedInStatus() {
-      let jwt = this.$auth.$storage.getCookie("loggedIn");
+      let jwt = this.$auth.$storage.getCookie('loggedIn');
       return jwt;
     },
   },
 
+  created() {
+    if (this.loggedInStatus) {
+      this.links.push({ name: 'New Post', link: '/admin/newpost' });
+      this.links.push({ name: 'Edit', link: '/admin/edit' });
+    }
+  },
+
   methods: {
     toggleAdmin() {
-      if (this.loggedInStatus) this.$router.push("/logout");
-      else this.$router.push("/login");
+      if (this.loggedInStatus) this.$router.push('/logout');
+      else this.$router.push('/login');
     },
   },
 };
